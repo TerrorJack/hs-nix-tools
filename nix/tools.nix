@@ -1,4 +1,4 @@
-{ sources ? import ./nix/sources.nix { }
+{ sources ? import ./sources.nix { }
 , haskellNix ? import sources.haskell-nix { }
 , pkgs ? import haskellNix.sources.nixpkgs-unstable haskellNix.nixpkgsArgs
 , ghc ? "ghc8107"
@@ -44,7 +44,7 @@ in
     src = pkgs.applyPatches {
       name = "cabal-extras-src";
       src = sources.cabal-extras;
-      patches = [ ./nix/cabal-extras.diff ];
+      patches = [ ./cabal-extras.diff ];
     };
     compiler-nix-name = toolsGhc;
     configureArgs = "--disable-benchmarks --disable-tests --minimize-conflict-set";
