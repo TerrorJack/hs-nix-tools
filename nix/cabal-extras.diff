@@ -1,0 +1,26 @@
+--- a/cabal.project
++++ b/cabal.project
+@@ -38,9 +38,20 @@
+ constraints: process       installed
+ constraints: transformers  installed
+
+-packages: https://oleg.fi/gentle-introduction-2021.2.tar.gz
+-packages: https://github.com/phadej/warp-wo-x509/releases/download/v3.3.17/warp-3.3.17.tar.gz
+-packages: https://github.com/phadej/hooglite/releases/download/v0.20211229/hooglite-0.20211229.tar.gz
++source-repository-package
++  type: git
++  location: https://github.com/phadej/gentle-introduction.git
++  tag: 176cddab26a446bea644229c2e3ebf9e7b922559
++
++source-repository-package
++  type: git
++  location: https://github.com/phadej/warp-wo-x509.git
++  tag: 98648f7520d228e6a14747223f0bbd68620b9318
++
++source-repository-package
++  type: git
++  location: https://github.com/phadej/hooglite.git
++  tag: 18856375932f6744cac7849bd1e816538537863f
+
+ -- For local dev these can be used:
+ -- packages: extras/gentle-introduction-*.tar.gz

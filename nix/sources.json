@@ -1,0 +1,38 @@
+{
+    "cabal-extras": {
+        "branch": "master",
+        "description": "A tool suite to aid Haskell development using `cabal-install`",
+        "homepage": null,
+        "owner": "phadej",
+        "repo": "cabal-extras",
+        "rev": "6b94e6044029566f5fee281ca5893c21db5fcae9",
+        "sha256": "1lv4flbkbhawxzblm1hf41kyvlh3m7zymwvp1b229nj1fkx7yc1s",
+        "type": "tarball",
+        "url": "https://github.com/phadej/cabal-extras/archive/6b94e6044029566f5fee281ca5893c21db5fcae9.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "haskell-language-server": {
+        "branch": "master",
+        "description": "Official haskell ide support via language server (LSP). Successor of ghcide & haskell-ide-engine.",
+        "homepage": "",
+        "owner": "haskell",
+        "repo": "haskell-language-server",
+        "rev": "a8aa016f780ed115d8fc36732c4c86fc931800c4",
+        "sha256": "0k1bqby5x2fy233vz97l0l74lmkk8id04zm9vvmp6rg8yafrdvhi",
+        "type": "tarball",
+        "url": "https://github.com/haskell/haskell-language-server/archive/a8aa016f780ed115d8fc36732c4c86fc931800c4.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "haskell-nix": {
+        "branch": "master",
+        "description": "Alternative Haskell Infrastructure for Nixpkgs",
+        "homepage": "https://input-output-hk.github.io/haskell.nix",
+        "owner": "TerrorJack",
+        "repo": "haskell.nix",
+        "rev": "f48d35ebecee104fd25c9c853cd6a4476a25dd99",
+        "sha256": "011fz9k1q36jq8b9vp938a1a7j4qz3xa943lmwwdhqxz116wpyqa",
+        "type": "tarball",
+        "url": "https://github.com/TerrorJack/haskell.nix/archive/f48d35ebecee104fd25c9c853cd6a4476a25dd99.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}

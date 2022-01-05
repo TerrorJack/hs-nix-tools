@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  - push
+  - pull_request
+
+jobs:
+
+  ci:
+    name: ci-${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-11
+    steps:
+
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: setup-nix
+        uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: |
+            max-jobs = 1
+            substituters = https://cache.nixos.org https://hydra.iohk.io
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=
+
+      - name: setup-cachix
+        uses: cachix/cachix-action@v10
+        with:
+          name: asterius
+          signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+
+      - name: cachix-watch-store
+        run: |
+          cachix watch-store -c9 -j3 asterius &
+
+      - name: ci
+        run: |
+          nix-build --keep-going --no-out-link nix/ci.nix
