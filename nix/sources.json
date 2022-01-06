@@ -17,10 +17,10 @@
         "homepage": "",
         "owner": "haskell",
         "repo": "haskell-language-server",
-        "rev": "a8aa016f780ed115d8fc36732c4c86fc931800c4",
-        "sha256": "0k1bqby5x2fy233vz97l0l74lmkk8id04zm9vvmp6rg8yafrdvhi",
+        "rev": "e6227440b47e2d05bc5ad1e4d65cba4c037d1d74",
+        "sha256": "0v3vfndfp2hxs5zh4k04mb7c5hjwyi3bz54j39v4p5zdrnzwm9r6",
         "type": "tarball",
-        "url": "https://github.com/haskell/haskell-language-server/archive/a8aa016f780ed115d8fc36732c4c86fc931800c4.tar.gz",
+        "url": "https://github.com/haskell/haskell-language-server/archive/e6227440b47e2d05bc5ad1e4d65cba4c037d1d74.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "haskell-nix": {
@@ -29,10 +29,10 @@
         "homepage": "https://input-output-hk.github.io/haskell.nix",
         "owner": "TerrorJack",
         "repo": "haskell.nix",
-        "rev": "f48d35ebecee104fd25c9c853cd6a4476a25dd99",
-        "sha256": "011fz9k1q36jq8b9vp938a1a7j4qz3xa943lmwwdhqxz116wpyqa",
+        "rev": "893c58fcae6d0ff578c2931ef18eef76763d3cc8",
+        "sha256": "1kxax7rmq0gcikf2h2b3fmfcx6497srhd3kzla0ik41wyb3ipl7k",
         "type": "tarball",
-        "url": "https://github.com/TerrorJack/haskell.nix/archive/f48d35ebecee104fd25c9c853cd6a4476a25dd99.tar.gz",
+        "url": "https://github.com/TerrorJack/haskell.nix/archive/893c58fcae6d0ff578c2931ef18eef76763d3cc8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

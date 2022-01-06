@@ -5,10 +5,10 @@
   src = pkgs.fetchFromGitLab {
     owner = "ghc";
     repo = "ghc";
-    rev = "1de94daaf3d9bd03b1a641cc28678de224662738";
+    rev = "978ea35e37b49ffde28b0536e44362b66f3187b4";
     domain = "gitlab.haskell.org";
     fetchSubmodules = true;
-    hash = "sha512-3sUIcTkerwMb0Ep9ynrE+tbw9g8goPJwQUARbZoWVBggS/mt2JQvQ8gtudoT4/q7riqB95jzeq/vkTiavlRzQg==";
+    hash = "sha512-84Nej29Argc53gwuFRLDMVRChsE2PI/ZhuV+QXzO2Sx1QFrEu//wo+LdiB9UDI5HoZEOsAl5exxt/Nv0j4dysQ==";
   };
   llvmPackages = pkgs.llvmPackages_12;
 }

@@ -5,6 +5,7 @@
 , flavour ? "validate"
 , git
 , haskell-nix
+, lib
 , llvmPackages
 , m4
 , ncurses
@@ -28,6 +29,7 @@ let
     };
   };
   happy = callPackage ./happy.nix { inherit bootghc; };
+  hscolour = callPackage ./hscolour.nix { inherit bootghc; };
   result = stdenv.mkDerivation {
     pname = "ghc";
     inherit version src;
@@ -37,14 +39,15 @@ let
     outputs = [ "out" "build" ];
 
     nativeBuildInputs =
-      [ alex autoconf automake ghc hadrian happy m4 python3 which ];
+      [ alex autoconf automake ghc hadrian happy hscolour m4 python3 which ];
 
-    preConfigure = ''
+    preConfigure = lib.optionalString (!isNull llvmPackages) ''
+      export LLC=${llvmPackages.llvm}/bin/llc
+      export OPT=${llvmPackages.llvm}/bin/opt
+    '' + ''
       export AR=$(which $AR)
       export CC=$(which $CC)
       export LD=$(which $LD)
-      export LLC=${llvmPackages.llvm}/bin/llc
-      export OPT=${llvmPackages.llvm}/bin/opt
       export RANLIB=$(which $RANLIB)
 
       ./boot --hadrian
@@ -54,13 +57,16 @@ let
       "--with-curses-includes=${ncurses.dev}/include"
       "--with-curses-libraries=${ncurses}/lib"
       "--with-intree-gmp"
+    ] ++ (if isNull numactl then
+      [ "--disable-numa" ]
+    else [
+      "--enable-numa"
       "--with-libnuma-includes=${numactl}/include"
       "--with-libnuma-libraries=${numactl}/lib"
-    ];
+    ]);
 
     buildPhase = ''
       hadrian \
-        --docs=none \
         --flavour=${flavour} \
         --prefix=$out \
         -j$NIX_BUILD_CORES \
@@ -73,8 +79,8 @@ let
         --group=0 \
         --numeric-owner \
         -cf $build/source.tar \
-        -C $NIX_BUILD_TOP \
-        source
+        -C .. \
+        $(basename $PWD)
     '';
 
     dontInstall = true;
@@ -89,20 +95,13 @@ let
     name = "ghc-${version}-test";
     src = "${result.build}/source.tar";
 
-    nativeBuildInputs = [
-      git
-      hadrian
-      perl
-      python3
-      which
-    ];
+    nativeBuildInputs = [ git hadrian perl python3 which ];
 
     dontConfigure = true;
 
     buildPhase = ''
       mkdir $out
       hadrian \
-        --docs=none \
         --flavour=${flavour} \
         -j$NIX_BUILD_CORES \
         --summary=$out/testsuite_summary.txt \
