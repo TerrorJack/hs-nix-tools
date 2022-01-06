@@ -11,7 +11,7 @@
 , ncurses
 , numactl
 , perl
-, python3
+, sphinx
 , src
 , stdenv
 , version ? "9.3"
@@ -38,8 +38,20 @@ let
 
     outputs = [ "out" "build" ];
 
-    nativeBuildInputs =
-      [ alex autoconf automake ghc hadrian happy hscolour m4 python3 which ];
+    nativeBuildInputs = [
+      alex
+      autoconf
+      automake
+      ghc
+      hadrian
+      happy
+      hscolour
+      m4
+      sphinx
+      which
+    ];
+
+    LANG = "C.utf8";
 
     preConfigure = lib.optionalString (!isNull llvmPackages) ''
       export LLC=${llvmPackages.llvm}/bin/llc
@@ -57,7 +69,7 @@ let
       "--with-curses-includes=${ncurses.dev}/include"
       "--with-curses-libraries=${ncurses}/lib"
       "--with-intree-gmp"
-    ] ++ (if isNull numactl then
+    ] ++ [ "--disable-dwarf-unwind" ] ++ (if isNull numactl then
       [ "--disable-numa" ]
     else [
       "--enable-numa"
@@ -67,6 +79,7 @@ let
 
     buildPhase = ''
       hadrian \
+        --docs=no-sphinx-pdfs \
         --flavour=${flavour} \
         --prefix=$out \
         -j$NIX_BUILD_CORES \
@@ -95,7 +108,7 @@ let
     name = "ghc-${version}-test";
     src = "${result.build}/source.tar";
 
-    nativeBuildInputs = [ git hadrian perl python3 which ];
+    nativeBuildInputs = [ git hadrian perl which ];
 
     dontConfigure = true;
 
