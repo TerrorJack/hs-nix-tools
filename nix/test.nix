@@ -10,5 +10,8 @@
     fetchSubmodules = true;
     hash = "sha512-84Nej29Argc53gwuFRLDMVRChsE2PI/ZhuV+QXzO2Sx1QFrEu//wo+LdiB9UDI5HoZEOsAl5exxt/Nv0j4dysQ==";
   };
-  llvmPackages = pkgs.llvmPackages_12;
+  llvmPackages = pkgs.llvmPackages_latest;
+  stdenv = pkgs.llvmPackages_latest.stdenv;
+  docs = "none";
+  broken-test = ["T13366" "ghcilink003"];
 }

@@ -1,7 +1,9 @@
 { autoconf
 , automake
 , bootghc ? "ghc8107"
+, broken-test ? []
 , callPackage
+, docs ? "no-sphinx-pdfs"
 , flavour ? "validate"
 , git
 , haskell-nix
@@ -9,11 +11,11 @@
 , llvmPackages
 , m4
 , ncurses
-, numactl
 , perl
 , sphinx
 , src
 , stdenv
+, test-speed ? "normal"
 , version ? "9.3"
 , which
 }:
@@ -24,7 +26,7 @@ let
     inherit bootghc;
     src = haskell-nix.haskellLib.cleanGit {
       name = "hadrian-src";
-      inherit src;
+      src = builtins.unsafeDiscardStringContext src;
       subDir = "hadrian";
     };
   };
@@ -38,18 +40,8 @@ let
 
     outputs = [ "out" "build" ];
 
-    nativeBuildInputs = [
-      alex
-      autoconf
-      automake
-      ghc
-      hadrian
-      happy
-      hscolour
-      m4
-      sphinx
-      which
-    ];
+    nativeBuildInputs =
+      [ alex autoconf automake ghc hadrian happy hscolour m4 sphinx which ];
 
     LANG = "C.utf8";
 
@@ -69,17 +61,11 @@ let
       "--with-curses-includes=${ncurses.dev}/include"
       "--with-curses-libraries=${ncurses}/lib"
       "--with-intree-gmp"
-    ] ++ [ "--disable-dwarf-unwind" ] ++ (if isNull numactl then
-      [ "--disable-numa" ]
-    else [
-      "--enable-numa"
-      "--with-libnuma-includes=${numactl}/include"
-      "--with-libnuma-libraries=${numactl}/lib"
-    ]);
+    ] ++ [ "--disable-dwarf-unwind" ] ++ [ "--disable-numa" ];
 
     buildPhase = ''
       hadrian \
-        --docs=no-sphinx-pdfs \
+        --docs=${docs} \
         --flavour=${flavour} \
         --prefix=$out \
         -j$NIX_BUILD_CORES \
@@ -98,14 +84,14 @@ let
 
     dontInstall = true;
 
-    passthru.tests = { inherit test; };
+    passthru.tests = { inherit validate; };
 
     hardeningDisable = [ "all" ];
     requiredSystemFeatures = [ "big-parallel" ];
     strictDeps = true;
   };
-  test = stdenv.mkDerivation {
-    name = "ghc-${version}-test";
+  validate = stdenv.mkDerivation {
+    name = "ghc-${version}-validate";
     src = "${result.build}/source.tar";
 
     nativeBuildInputs = [ git hadrian perl which ];
@@ -115,13 +101,15 @@ let
     buildPhase = ''
       mkdir $out
       hadrian \
+        --docs=${docs} \
         --flavour=${flavour} \
         -j$NIX_BUILD_CORES \
+        --broken-test=${lib.escapeShellArg broken-test} \
         --summary=$out/testsuite_summary.txt \
         --summary-junit=$out/testsuite.xml \
         --test-compiler=${result}/bin/ghc \
         --test-have-intree-files \
-        --test-speed=normal \
+        --test-speed=${test-speed} \
         test
     '';
 
