@@ -4,7 +4,7 @@
 , broken-test ? []
 , callPackage
 , docs ? "no-sphinx-pdfs"
-, flavour ? "validate"
+, flavour ? "validate+debug_info+split_sections"
 , git
 , haskell-nix
 , lib
@@ -83,6 +83,7 @@ let
     '';
 
     dontInstall = true;
+    dontFixup = true;
 
     passthru.tests = { inherit validate; };
 
