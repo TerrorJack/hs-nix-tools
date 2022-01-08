@@ -3,7 +3,7 @@
 , pkgs ? import haskellNix.sources.nixpkgs-unstable haskellNix.nixpkgsArgs
 , ghc ? "ghc8107"
 , toolsGhc ? "ghc8107"
-, supportedGhcs ? [ "ghc865" "ghc884" "ghc8107" "ghc901" "ghc921" ]
+, supportedGhcs ? [ "ghc865" "ghc884" "ghc8107" "ghc902" "ghc921" ]
 , modules ? [ ]
 }:
 let
