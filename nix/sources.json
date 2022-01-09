@@ -27,12 +27,12 @@
         "branch": "master",
         "description": "Alternative Haskell Infrastructure for Nixpkgs",
         "homepage": "https://input-output-hk.github.io/haskell.nix",
-        "owner": "TerrorJack",
+        "owner": "input-output-hk",
         "repo": "haskell.nix",
-        "rev": "65dc4c95a2553fb03f737cab8e06332d4233fd0d",
-        "sha256": "1a9lwcjnyvanbaj368abkfddwxpijjm4pgphbl7aq9cmpcv2glqj",
+        "rev": "96a067122657f39a649ef266486f655261f5d34d",
+        "sha256": "1b1x33726wl5flyfg2k78kxv9aa02l02rjxc8vigl8pfd1s2qg6m",
         "type": "tarball",
-        "url": "https://github.com/TerrorJack/haskell.nix/archive/65dc4c95a2553fb03f737cab8e06332d4233fd0d.tar.gz",
+        "url": "https://github.com/input-output-hk/haskell.nix/archive/96a067122657f39a649ef266486f655261f5d34d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
