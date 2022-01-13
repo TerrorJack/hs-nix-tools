@@ -1,7 +1,7 @@
 { autoconf
 , automake
 , bootghc ? "ghc8107"
-, broken-test ? []
+, broken-test ? [ ]
 , callPackage
 , docs ? "no-sphinx-pdfs"
 , flavour ? "validate+debug_info+split_sections"
@@ -15,12 +15,22 @@
 , sphinx
 , src
 , stdenv
+, stdenvNoCC
 , test-speed ? "normal"
 , version ? "9.3"
 , which
 }:
 let
   alex = callPackage ./alex.nix { inherit bootghc; };
+  env = {
+    AR = "${stdenv.cc.bintools.bintools}/bin/ar";
+    CC = "${stdenv.cc}/bin/cc";
+    LD = "${stdenv.cc}/bin/ld";
+    LLC = "${llvmPackages.llvm}/bin/llc";
+    NM = "${stdenv.cc.bintools.bintools}/bin/nm";
+    OPT = "${llvmPackages.llvm}/bin/opt";
+    RANLIB = "${stdenv.cc.bintools.bintools}/bin/ranlib";
+  };
   ghc = haskell-nix.compiler."${bootghc}";
   hadrian = callPackage ./hadrian.nix {
     inherit bootghc;
@@ -32,7 +42,7 @@ let
   };
   happy = callPackage ./happy.nix { inherit bootghc; };
   hscolour = callPackage ./hscolour.nix { inherit bootghc; };
-  result = stdenv.mkDerivation {
+  result = stdenvNoCC.mkDerivation ({
     pname = "ghc";
     inherit version src;
 
@@ -45,15 +55,7 @@ let
 
     LANG = "C.utf8";
 
-    preConfigure = lib.optionalString (!isNull llvmPackages) ''
-      export LLC=${llvmPackages.llvm}/bin/llc
-      export OPT=${llvmPackages.llvm}/bin/opt
-    '' + ''
-      export AR=$(which $AR)
-      export CC=$(which $CC)
-      export LD=$(which $LD)
-      export RANLIB=$(which $RANLIB)
-
+    preConfigure = ''
       ./boot --hadrian
     '';
 
@@ -90,8 +92,8 @@ let
     hardeningDisable = [ "all" ];
     requiredSystemFeatures = [ "big-parallel" ];
     strictDeps = true;
-  };
-  validate = stdenv.mkDerivation {
+  } // env);
+  validate = stdenv.mkDerivation ({
     name = "ghc-${version}-validate";
     src = "${result.build}/source.tar";
 
@@ -118,6 +120,6 @@ let
 
     hardeningDisable = [ "all" ];
     requiredSystemFeatures = [ "big-parallel" ];
-  };
+  } // env);
 in
 result
