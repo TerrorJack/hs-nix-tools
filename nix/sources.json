@@ -17,22 +17,22 @@
         "homepage": "",
         "owner": "haskell",
         "repo": "haskell-language-server",
-        "rev": "e6227440b47e2d05bc5ad1e4d65cba4c037d1d74",
-        "sha256": "0v3vfndfp2hxs5zh4k04mb7c5hjwyi3bz54j39v4p5zdrnzwm9r6",
+        "rev": "8804cbdf650e85ebb44adf39848d61454c26e8f5",
+        "sha256": "1dpyi7civczh1smqaq0g4w7i37cqa3vd8y6nk4g0hrxhslfwi6g7",
         "type": "tarball",
-        "url": "https://github.com/haskell/haskell-language-server/archive/e6227440b47e2d05bc5ad1e4d65cba4c037d1d74.tar.gz",
+        "url": "https://github.com/haskell/haskell-language-server/archive/8804cbdf650e85ebb44adf39848d61454c26e8f5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "haskell-nix": {
         "branch": "master",
         "description": "Alternative Haskell Infrastructure for Nixpkgs",
         "homepage": "https://input-output-hk.github.io/haskell.nix",
-        "owner": "input-output-hk",
+        "owner": "TerrorJack",
         "repo": "haskell.nix",
-        "rev": "7c5d604fe559601e02df2013976a5e2c17abbaf2",
-        "sha256": "0x2hnz3gx3f5y8afas29m6fq8mpwcbkszr6frll1rjjndydj48m9",
+        "rev": "5f1857bda3f7e8f7b4e42bcffffb50e83efd90e0",
+        "sha256": "13299nwdfpvhfca0akz4ccdkc9rkpjyzmmblmx5nr9qpxfbjbvlx",
         "type": "tarball",
-        "url": "https://github.com/input-output-hk/haskell.nix/archive/7c5d604fe559601e02df2013976a5e2c17abbaf2.tar.gz",
+        "url": "https://github.com/TerrorJack/haskell.nix/archive/5f1857bda3f7e8f7b4e42bcffffb50e83efd90e0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

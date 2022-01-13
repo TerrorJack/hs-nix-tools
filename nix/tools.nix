@@ -9,31 +9,43 @@
 let
   ghc_ver = compiler-nix-name:
     pkgs.haskell-nix.compiler."${compiler-nix-name}".version;
-  ghc_9 = compiler-nix-name:
-    pkgs.lib.versionAtLeast (ghc_ver compiler-nix-name) "9";
   mk_hls_pkg_set = compiler-nix-name:
+    let
+      configureArgs = {
+        ghc865 =
+          "--disable-benchmarks --disable-tests -fall-formatters -fall-plugins";
+        ghc884 =
+          "--disable-benchmarks --disable-tests -fall-formatters -fall-plugins";
+        ghc8107 =
+          "--disable-benchmarks --disable-tests -fall-formatters -fall-plugins";
+        ghc902 = "--disable-benchmarks --disable-tests";
+        ghc921 = "--disable-benchmarks --disable-tests";
+      }."${compiler-nix-name}";
+      hls_project_file = {
+        ghc865 = "cabal.project";
+        ghc884 = "cabal.project";
+        ghc8107 = "cabal.project";
+        ghc902 = "cabal-ghc901.project";
+        ghc921 = "cabal-ghc921.project";
+      }."${compiler-nix-name}";
+    in
     pkgs.haskell-nix.cabalProject rec {
       src = sources.haskell-language-server;
-      cabalProject = builtins.readFile (if ghc_9 compiler-nix-name then
-        "${src}/cabal-ghc901.project"
-      else
-        "${src}/cabal.project");
-      configureArgs =
-        "--disable-benchmarks --disable-tests -fall-formatters -fall-plugins";
-      inherit compiler-nix-name modules;
+      cabalProject = builtins.readFile "${src}/${hls_project_file}";
+      inherit compiler-nix-name configureArgs modules;
     };
   hls_pkg_sets = pkgs.lib.genAttrs supportedGhcs mk_hls_pkg_set;
   mk_hls_tool = ghc: name: mk_hls_tool' ghc name name;
   mk_hls_tool' = ghc: pkg: name:
-    if ghc_9 ghc then
-      null
+    if pkgs.lib.elem ghc [ "ghc865" "ghc884" "ghc8107" ] then
+      (hls_pkg_sets."${ghc}")."${pkg}".components.exes."${name}"
     else
-      (hls_pkg_sets."${ghc}")."${pkg}".components.exes."${name}";
+      null;
   mk_tool = name: mk_tool' toolsGhc name;
   mk_tool' = compiler-nix-name: name:
     pkgs.haskell-nix.hackage-tool {
       inherit name modules compiler-nix-name;
-      index-state = "2021-12-29T12:30:08Z";
+      index-state = "2022-01-11T22:05:45Z";
     };
 in
 {
@@ -47,8 +59,9 @@ in
       patches = [ ./cabal-extras.diff ];
     };
     compiler-nix-name = toolsGhc;
-    configureArgs = "--disable-benchmarks --disable-tests --minimize-conflict-set";
-    index-state = "2021-12-29T12:30:08Z";
+    configureArgs =
+      "--disable-benchmarks --disable-tests --minimize-conflict-set";
+    index-state = "2022-01-11T22:05:45Z";
     modules = modules ++ [{ reinstallableLibGhc = true; }];
     sha256map = {
       "https://github.com/phadej/gentle-introduction.git"."176cddab26a446bea644229c2e3ebf9e7b922559" =
@@ -81,19 +94,19 @@ in
   ppsh = (pkgs.haskell-nix.hackage-package {
     name = "pretty-show";
     compiler-nix-name = toolsGhc;
-    index-state = "2021-12-29T12:30:08Z";
+    index-state = "2022-01-11T22:05:45Z";
     inherit modules;
   }).components.exes.ppsh;
   refactor = mk_hls_tool' toolsGhc "apply-refact" "refactor";
   retrie = mk_hls_tool toolsGhc "retrie";
   stylish-haskell = mk_hls_tool toolsGhc "stylish-haskell";
   weeder =
-    if pkgs.lib.versionAtLeast (ghc_ver ghc) "8.10" && !(ghc_9 ghc) then
+    if ghc == toolsGhc then
       (pkgs.haskell-nix.hackage-package {
         name = "weeder";
         version = "2.2.0";
         compiler-nix-name = ghc;
-        index-state = "2021-12-29T12:30:08Z";
+        index-state = "2022-01-11T22:05:45Z";
         inherit modules;
       }).components.exes.weeder
     else

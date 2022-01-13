@@ -7,8 +7,7 @@
 pkgs.runCommand "hs-nix-tools-ci"
 {
   paths =
-    [ (pkgs.haskell-nix.compiler.ghc8107.override { enableNUMA = false; }) ]
-    ++ map (pkg: pkgs."${pkg}") miscPkgs ++ pkgs.lib.concatMap
+    map (pkg: pkgs."${pkg}") miscPkgs ++ pkgs.lib.concatMap
       (ghc:
         [ pkgs.haskell-nix.compiler."${ghc}" ]
         ++ pkgs.lib.attrValues (import ./tools.nix { inherit ghc; }))

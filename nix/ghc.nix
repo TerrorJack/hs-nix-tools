@@ -25,6 +25,7 @@ let
   env = {
     AR = "${llvmPackages.llvm}/bin/llvm-ar";
     CC = "${stdenv.cc}/bin/cc";
+    # CONF_GCC_LINKER_OPTS_STAGE2 = "-fuse-ld=${llvmPackages.lld}/bin/ld.lld";
     LD = "${llvmPackages.lld}/bin/ld.lld";
     LLC = "${llvmPackages.llvm}/bin/llc";
     NM = "${llvmPackages.llvm}/bin/llvm-nm";
@@ -36,7 +37,7 @@ let
     inherit bootghc;
     src = haskell-nix.haskellLib.cleanGit {
       name = "hadrian-src";
-      src = builtins.unsafeDiscardStringContext src;
+      src = src;
       subDir = "hadrian";
     };
   };
