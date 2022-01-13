@@ -23,13 +23,13 @@
 let
   alex = callPackage ./alex.nix { inherit bootghc; };
   env = {
-    AR = "${stdenv.cc.bintools.bintools}/bin/ar";
+    AR = "${llvmPackages.llvm}/bin/llvm-ar";
     CC = "${stdenv.cc}/bin/cc";
-    LD = "${stdenv.cc}/bin/ld";
+    LD = "${llvmPackages.lld}/bin/ld.lld";
     LLC = "${llvmPackages.llvm}/bin/llc";
-    NM = "${stdenv.cc.bintools.bintools}/bin/nm";
+    NM = "${llvmPackages.llvm}/bin/llvm-nm";
     OPT = "${llvmPackages.llvm}/bin/opt";
-    RANLIB = "${stdenv.cc.bintools.bintools}/bin/ranlib";
+    RANLIB = "${llvmPackages.llvm}/bin/llvm-ranlib";
   };
   ghc = haskell-nix.compiler."${bootghc}";
   hadrian = callPackage ./hadrian.nix {
