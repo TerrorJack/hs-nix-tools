@@ -64,7 +64,8 @@ let
       "--with-curses-includes=${ncurses.dev}/include"
       "--with-curses-libraries=${ncurses}/lib"
       "--with-intree-gmp"
-    ] ++ [ "--disable-dwarf-unwind" ] ++ [ "--disable-numa" ];
+    ] ++ [ "--enable-libffi-adjustors" ] ++ [ "--disable-dwarf-unwind" ]
+    ++ [ "--disable-numa" ];
 
     buildPhase = ''
       hadrian \
