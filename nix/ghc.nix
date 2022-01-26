@@ -19,14 +19,19 @@
 , test-speed ? "normal"
 , version ? "9.3"
 , which
+, overrideCC
 }:
 let
   alex = callPackage ./alex.nix { inherit bootghc; };
+  buildStdenv = overrideCC stdenv (stdenv.cc.override { inherit (llvmPackages) bintools; });
   env = {
     AR = "${llvmPackages.llvm}/bin/llvm-ar";
-    CC = "${stdenv.cc}/bin/cc";
+    CC = "${buildStdenv.cc}/bin/cc";
+    # CFLAGS = "-fuse-ld=${llvmPackages.lld}/bin/ld.lld";
+    # CONF_GCC_LINKER_OPTS_STAGE1 = "-fuse-ld=${llvmPackages.lld}/bin/ld.lld";
     # CONF_GCC_LINKER_OPTS_STAGE2 = "-fuse-ld=${llvmPackages.lld}/bin/ld.lld";
-    LD = "${llvmPackages.lld}/bin/ld.lld";
+    # LD = "${llvmPackages.lld}/bin/ld.lld";
+    LD = "${buildStdenv.cc}/bin/ld";
     LLC = "${llvmPackages.llvm}/bin/llc";
     NM = "${llvmPackages.llvm}/bin/llvm-nm";
     OPT = "${llvmPackages.llvm}/bin/opt";
@@ -47,6 +52,7 @@ let
     pname = "ghc";
     inherit version src;
 
+    patches = [ ./ghc.diff ];
     postPatch = "patchShebangs .";
 
     outputs = [ "out" "build" ];
@@ -95,7 +101,7 @@ let
     requiredSystemFeatures = [ "big-parallel" ];
     strictDeps = true;
   } // env);
-  validate = stdenv.mkDerivation ({
+  validate = buildStdenv.mkDerivation ({
     name = "ghc-${version}-validate";
     src = "${result.build}/source.tar";
 
