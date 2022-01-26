@@ -1,5 +1,6 @@
 { autoconf
 , automake
+, bintools
 , bootghc ? "ghc8107"
 , broken-test ? [ ]
 , callPackage
@@ -23,19 +24,15 @@
 }:
 let
   alex = callPackage ./alex.nix { inherit bootghc; };
-  buildStdenv = overrideCC stdenv (stdenv.cc.override { inherit (llvmPackages) bintools; });
+  buildStdenv = overrideCC stdenv (stdenv.cc.override { inherit bintools; });
   env = {
-    AR = "${llvmPackages.llvm}/bin/llvm-ar";
+    AR = "${bintools.bintools}/bin/ar";
     CC = "${buildStdenv.cc}/bin/cc";
-    # CFLAGS = "-fuse-ld=${llvmPackages.lld}/bin/ld.lld";
-    # CONF_GCC_LINKER_OPTS_STAGE1 = "-fuse-ld=${llvmPackages.lld}/bin/ld.lld";
-    # CONF_GCC_LINKER_OPTS_STAGE2 = "-fuse-ld=${llvmPackages.lld}/bin/ld.lld";
-    # LD = "${llvmPackages.lld}/bin/ld.lld";
     LD = "${buildStdenv.cc}/bin/ld";
     LLC = "${llvmPackages.llvm}/bin/llc";
-    NM = "${llvmPackages.llvm}/bin/llvm-nm";
+    NM = "${bintools.bintools}/bin/nm";
     OPT = "${llvmPackages.llvm}/bin/opt";
-    RANLIB = "${llvmPackages.llvm}/bin/llvm-ranlib";
+    RANLIB = "${bintools.bintools}/bin/ranlib";
   };
   ghc = haskell-nix.compiler."${bootghc}";
   hadrian = callPackage ./hadrian.nix {
@@ -52,7 +49,6 @@ let
     pname = "ghc";
     inherit version src;
 
-    patches = [ ./ghc.diff ];
     postPatch = "patchShebangs .";
 
     outputs = [ "out" "build" ];
