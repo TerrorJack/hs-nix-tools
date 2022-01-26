@@ -7,13 +7,13 @@ pkgs.callPackage ./ghc.nix {
     src = pkgs.fetchFromGitLab {
       owner = "ghc";
       repo = "ghc";
-      rev = "781323a3076781b5db50bdbeb8f64394add43836";
+      rev = "e840582943eaa49e739fc9d801d2f0925daac0a0";
       domain = "gitlab.haskell.org";
       fetchSubmodules = true;
       hash =
-        "sha512-hJW7XNTQRbSLyrljlF2TsH3RRkmpSvEG56sRlnACSDLWQMEHgxi+rsqNVKest4Sy5DEG7M7gPKWrek4D3x6ebQ==";
+        "sha512-5jjRo3vIEggSI3MnAbn8GnMOJacfI7Q3cX/WFKNR2fIEgSn/W9+qwYD2BGBgpwMj3XyMfEqcfz25j+G4zGYFiA==";
     };
-    patches = [ ./7426.patch ./ghc.diff ];
+    patches = [ ./ghc.diff ];
   };
   llvmPackages = pkgs.llvmPackages_latest;
   stdenv = pkgs.llvmPackages_latest.stdenv;
