@@ -7,11 +7,11 @@ pkgs.callPackage ./ghc.nix {
     src = pkgs.fetchFromGitLab {
       owner = "ghc";
       repo = "ghc";
-      rev = "e840582943eaa49e739fc9d801d2f0925daac0a0";
+      rev = "f0adea14316ef476607cb7d99f74875875e52b20";
       domain = "gitlab.haskell.org";
       fetchSubmodules = true;
       hash =
-        "sha512-5jjRo3vIEggSI3MnAbn8GnMOJacfI7Q3cX/WFKNR2fIEgSn/W9+qwYD2BGBgpwMj3XyMfEqcfz25j+G4zGYFiA==";
+        "sha512-2cAkYAp5+xK6XBNKjsHEmWNZLoj6rYht90ypqnJ4+m5LMnthyknZRURCT3Vb5f9/hzouv061Ip9qff0wzt7Ing==";
     };
     patches = [ ./ghc.diff ];
   };
