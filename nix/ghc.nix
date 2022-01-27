@@ -43,10 +43,9 @@ let
   ghc = haskell-nix.compiler."${bootghc}";
   hadrian = callPackage ./hadrian.nix {
     inherit bootghc;
-    src = haskell-nix.haskellLib.cleanGit {
+    src = builtins.path {
       name = "hadrian-src";
-      src = src;
-      subDir = "hadrian";
+      path = "${src}/hadrian";
     };
   };
   happy = callPackage ./happy.nix { inherit bootghc; };
