@@ -5,10 +5,10 @@
         "homepage": null,
         "owner": "phadej",
         "repo": "cabal-extras",
-        "rev": "6b94e6044029566f5fee281ca5893c21db5fcae9",
-        "sha256": "1lv4flbkbhawxzblm1hf41kyvlh3m7zymwvp1b229nj1fkx7yc1s",
+        "rev": "a1855d147dc0e83d513b491fec971d2082ca6ba9",
+        "sha256": "1gddcxnvz17a9k1k5yafplqbbfqayfzwnw2xys7d1vrc8wrapwnh",
         "type": "tarball",
-        "url": "https://github.com/phadej/cabal-extras/archive/6b94e6044029566f5fee281ca5893c21db5fcae9.tar.gz",
+        "url": "https://github.com/phadej/cabal-extras/archive/a1855d147dc0e83d513b491fec971d2082ca6ba9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "haskell-language-server": {
@@ -17,10 +17,10 @@
         "homepage": "",
         "owner": "haskell",
         "repo": "haskell-language-server",
-        "rev": "3024c803cc8ea1467b12ae89e2872cdf3bbcb1f8",
-        "sha256": "1pbn770dcn3rk91zhrx0l4k2r364r8nfhmymhrmavbw3l1a5kxi7",
+        "rev": "0905e682de8cc3e2bfe509313924cff0527b6791",
+        "sha256": "0lf1siz6xbhmx4lpcp82frfjisf4yzap1qaava124vdq073938c4",
         "type": "tarball",
-        "url": "https://github.com/haskell/haskell-language-server/archive/3024c803cc8ea1467b12ae89e2872cdf3bbcb1f8.tar.gz",
+        "url": "https://github.com/haskell/haskell-language-server/archive/0905e682de8cc3e2bfe509313924cff0527b6791.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "haskell-nix": {
@@ -29,10 +29,10 @@
         "homepage": "https://input-output-hk.github.io/haskell.nix",
         "owner": "TerrorJack",
         "repo": "haskell.nix",
-        "rev": "a2a2b6d58e809d48780c6084379a6802eb87b805",
-        "sha256": "0qlmgvrg4zfnp2xwzqlz9ar3xcj35jr17dri2l0z7hjk25xg3dq6",
+        "rev": "6a174ce7c96e2922912a98fd4a3caf36ffa5cd0a",
+        "sha256": "0sarzlmhn8h6iic7qplqd61xq9872wlf1d5rp1yxq36dr2d076iy",
         "type": "tarball",
-        "url": "https://github.com/TerrorJack/haskell.nix/archive/a2a2b6d58e809d48780c6084379a6802eb87b805.tar.gz",
+        "url": "https://github.com/TerrorJack/haskell.nix/archive/6a174ce7c96e2922912a98fd4a3caf36ffa5cd0a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

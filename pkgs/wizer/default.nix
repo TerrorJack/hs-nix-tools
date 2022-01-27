@@ -5,9 +5,9 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "bytecodealliance";
     repo = pname;
-    rev = "5dbfd4eade422acdff4c019941addf2656213df7";
+    rev = "42640a277d605b90c8b93e82786b1ea564b600a7";
     hash =
-      "sha512-8s4oMJRSFxosyPrlsjKjpnSroYpFdF70RjaCJYAcGOvM39diEMleEpeqLA5JiTJQmKce8ShRa5VjbD5vDPjSvg==";
+      "sha512-dRsmbiO+ZhQVX7hVr/mYvxJ5nux5xKfjW2jfgyRzjx0yoEvzTfZ8z84fYcCbrG4BrpdbmoZnYpb9gSHwxVq2JQ==";
   };
   patches = [ ./37.diff ];
   cargoHash =

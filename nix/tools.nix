@@ -13,11 +13,11 @@ let
     let
       configureArgs = {
         ghc865 =
-          "--disable-benchmarks --disable-tests -fall-formatters -fall-plugins";
+          "--disable-benchmarks --disable-tests";
         ghc884 =
-          "--disable-benchmarks --disable-tests -fall-formatters -fall-plugins";
+          "--disable-benchmarks --disable-tests";
         ghc8107 =
-          "--disable-benchmarks --disable-tests -fall-formatters -fall-plugins";
+          "--disable-benchmarks --disable-tests";
         ghc902 = "--disable-benchmarks --disable-tests";
         ghc921 = "--disable-benchmarks --disable-tests";
       }."${compiler-nix-name}";
@@ -45,7 +45,7 @@ let
   mk_tool' = compiler-nix-name: name:
     pkgs.haskell-nix.hackage-tool {
       inherit name modules compiler-nix-name;
-      index-state = "2022-01-11T22:05:45Z";
+      index-state = "2022-01-21T11:23:29Z";
     };
 in
 {
@@ -61,7 +61,7 @@ in
     compiler-nix-name = toolsGhc;
     configureArgs =
       "--disable-benchmarks --disable-tests --minimize-conflict-set";
-    index-state = "2022-01-11T22:05:45Z";
+    index-state = "2022-01-21T11:23:29Z";
     modules = modules ++ [{ reinstallableLibGhc = true; }];
     sha256map = {
       "https://github.com/phadej/gentle-introduction.git"."176cddab26a446bea644229c2e3ebf9e7b922559" =
@@ -94,7 +94,7 @@ in
   ppsh = (pkgs.haskell-nix.hackage-package {
     name = "pretty-show";
     compiler-nix-name = toolsGhc;
-    index-state = "2022-01-11T22:05:45Z";
+    index-state = "2022-01-21T11:23:29Z";
     inherit modules;
   }).components.exes.ppsh;
   refactor = mk_hls_tool' toolsGhc "apply-refact" "refactor";
@@ -106,7 +106,7 @@ in
         name = "weeder";
         version = "2.2.0";
         compiler-nix-name = ghc;
-        index-state = "2022-01-11T22:05:45Z";
+        index-state = "2022-01-21T11:23:29Z";
         inherit modules;
       }).components.exes.weeder
     else
