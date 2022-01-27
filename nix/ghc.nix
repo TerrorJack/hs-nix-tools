@@ -25,6 +25,12 @@
 let
   alex = callPackage ./alex.nix { inherit bootghc; };
   buildStdenv = overrideCC stdenv (stdenv.cc.override { inherit bintools; });
+  configureFlags = [
+    "--with-curses-includes=${ncurses.dev}/include"
+    "--with-curses-libraries=${ncurses}/lib"
+    "--with-intree-gmp"
+  ] ++ [ "--enable-libffi-adjustors" ] ++ [ "--disable-dwarf-unwind" ]
+  ++ [ "--disable-numa" ];
   env = {
     AR = "${bintools.bintools}/bin/ar";
     CC = "${buildStdenv.cc}/bin/cc";
@@ -60,14 +66,8 @@ let
 
     preConfigure = ''
       ./boot --hadrian
+      configureFlagsArray+=(${lib.escapeShellArgs configureFlags})
     '';
-
-    configureFlags = [
-      "--with-curses-includes=${ncurses.dev}/include"
-      "--with-curses-libraries=${ncurses}/lib"
-      "--with-intree-gmp"
-    ] ++ [ "--enable-libffi-adjustors" ] ++ [ "--disable-dwarf-unwind" ]
-    ++ [ "--disable-numa" ];
 
     buildPhase = ''
       hadrian \
