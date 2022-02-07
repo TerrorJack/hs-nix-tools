@@ -72,8 +72,12 @@ let
       hadrian \
         --docs=${docs} \
         --flavour=${flavour} \
+        --no-color \
+        --no-progress \
+        --no-time \
         --prefix=$out \
         -j$NIX_BUILD_CORES \
+        --keep-going -VV \
         install
 
       mkdir $build
@@ -109,6 +113,9 @@ let
       hadrian \
         --docs=${docs} \
         --flavour=${flavour} \
+        --no-color \
+        --no-progress \
+        --no-time \
         -j$NIX_BUILD_CORES \
         --broken-test=${lib.escapeShellArg broken-test} \
         --summary=$out/testsuite_summary.txt \
