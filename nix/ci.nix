@@ -20,7 +20,7 @@ pkgs.runCommand "hs-nix-tools-ci"
         ++ pkgs.lib.attrValues (import ./tools.nix { inherit ghc; }))
     ghcs ++ [
     (pkgs.haskell-nix.tool "ghc8107" "hoogle" {
-      version = "5.0.18.2";
+      version = "5.0.18.3";
       index-state = pkgs.haskell-nix.internalHackageIndexState;
     })
   ];
