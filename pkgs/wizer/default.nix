@@ -1,21 +1,17 @@
-{ pkgsStatic }:
-pkgsStatic.callPackage
-  ({ fetchFromGitHub, rustPlatform }:
-    rustPlatform.buildRustPackage rec {
-      pname = "wizer";
-      version = "1.3.5";
-      src = fetchFromGitHub {
-        owner = "bytecodealliance";
-        repo = pname;
-        rev = "1802237aeb8c19ff9448d67d280935bc10110d32";
-        hash =
-          "sha512-qc36Tb/7r2ZtL2T3pYCO7sBxENJQOWMDySftgbFq52SWdVqGYaHsBDXOk7IEm2rN/IjuIqKxTZJR3kmQbWXB7w==";
-      };
-      patches = [ ./37.diff ];
-      cargoHash =
-        "sha512-7ntHJHeZ3rAbu1oS/92acmrEh5+avD3+uAFE/fim6rEDepSKkRtbFTNvqSQ4y2kjSkde9ylcDiXt2ihwrqlgcQ==";
-      cargoBuildFlags = [ "--bin=wizer" "--features=env_logger,structopt" ];
-      preCheck = "export HOME=$(mktemp -d)";
-      allowedReferences = [ ];
-    })
-{ }
+{ fetchFromGitHub, rustPlatform }:
+rustPlatform.buildRustPackage rec {
+  pname = "wizer";
+  version = "1.3.5";
+  src = fetchFromGitHub {
+    owner = "bytecodealliance";
+    repo = pname;
+    rev = "15e739f9b6526132eb497b90b724d1ed3770e092";
+    hash =
+      "sha512-QMjaPyiboNQtrNVDoRyyLvBvBaklx+m/XsDwFsWCMk7jis7MYs/+HIInUJz5Fy7/OnRAInLiyj92ZdDjxvlZ6g==";
+  };
+  patches = [ ./wizer.diff ];
+  cargoHash =
+    "sha512-BnCnB9kLXc/S4LUpsP/zJsXQhNA/JmBaJnR/F0Q/Y4L2DsCY53pax1VDGevcmklgtOzR4fvkYWwvetMQmaOAkQ==";
+  cargoBuildFlags = [ "--bin=wizer" "--features=env_logger,structopt" ];
+  preCheck = "export HOME=$(mktemp -d)";
+}

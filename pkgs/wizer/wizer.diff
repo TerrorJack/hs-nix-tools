@@ -1,0 +1,26 @@
+diff --git a/src/lib.rs b/src/lib.rs
+index 98939a6..36a11d6 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -442,10 +442,7 @@ impl Wizer {
+         );
+ 
+         // Proposoals that we should add support for.
+-        config.wasm_reference_types(false);
+-        config.wasm_simd(false);
+         config.wasm_threads(false);
+-        config.wasm_bulk_memory(false);
+ 
+         Ok(config)
+     }
+@@ -461,8 +458,8 @@ impl Wizer {
+                 .unwrap_or(DEFAULT_WASM_MODULE_LINKING),
+ 
+             // Proposals that we should add support for.
+-            reference_types: false,
+-            simd: false,
++            reference_types: true,
++            simd: true,
+             threads: false,
+             tail_call: false,
+             memory64: false,
