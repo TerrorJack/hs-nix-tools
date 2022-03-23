@@ -74,14 +74,12 @@ let
   mk_tool = compiler-nix-name: name:
     pkgs.haskell-nix.hackage-tool {
       inherit name compiler-nix-name;
-      index-state = "2022-03-08T10:53:01Z";
     };
 in
 {
   brittany = pkgs.haskell-nix.hackage-tool {
     name = "brittany";
     compiler-nix-name = "ghc902";
-    index-state = "2022-03-08T10:53:01Z";
     modules = [{
       nonReinstallablePkgs = [
         "rts"
@@ -136,7 +134,6 @@ in
     compiler-nix-name = "ghc8107";
     configureArgs =
       "--disable-benchmarks --disable-tests --minimize-conflict-set";
-    index-state = "2022-03-08T10:53:01Z";
     modules = [{ reinstallableLibGhc = true; }];
     sha256map = {
       "https://github.com/phadej/gentle-introduction.git"."176cddab26a446bea644229c2e3ebf9e7b922559" =
@@ -155,15 +152,11 @@ in
   haskell-language-server = mk_hls_tool ghc "haskell-language-server";
   hiedb = mk_hls_tool ghc "hiedb";
   hindent = mk_tool "ghc902" "hindent";
-  hpack = pkgs.runCommand "hpack" { } ''
-    mkdir -p $out/bin
-    ln -s $(realpath ${pkgs.haskell-nix.internal-nix-tools}/bin/hpack) $out/bin/hpack
-  '';
+  nix-tools = pkgs.haskell-nix.internal-nix-tools;
   ormolu = mk_tool "ghc922" "ormolu";
   ppsh = (pkgs.haskell-nix.hackage-package {
     name = "pretty-show";
     compiler-nix-name = "ghc922";
-    index-state = "2022-03-08T10:53:01Z";
   }).components.exes.ppsh;
   stylish-haskell = pkgs.haskell-nix.hackage-tool {
     name = "stylish-haskell";
