@@ -145,15 +145,15 @@ in
     };
   }).cabal-docspec.components.exes.cabal-docspec;
   cabal-fmt = mk_tool "ghc8107" "cabal-fmt";
-  floskell = mk_tool "ghc922" "floskell";
-  fourmolu = mk_tool "ghc922" "fourmolu";
+  floskell = mk_hls_tool ghc "floskell";
+  fourmolu = mk_hls_tool ghc "fourmolu";
   friendly = mk_tool "ghc8107" "friendly";
   ghcid = mk_tool "ghc922" "ghcid";
   haskell-language-server = mk_hls_tool ghc "haskell-language-server";
   hiedb = mk_hls_tool ghc "hiedb";
   hindent = mk_tool "ghc902" "hindent";
   nix-tools = pkgs.haskell-nix.internal-nix-tools;
-  ormolu = mk_tool "ghc922" "ormolu";
+  ormolu = mk_hls_tool ghc "ormolu";
   ppsh = (pkgs.haskell-nix.hackage-package {
     name = "pretty-show";
     compiler-nix-name = "ghc922";
