@@ -13,56 +13,15 @@ let
         ghc922 = "cabal-ghc92.project";
       }."${compiler-nix-name}";
       modules = {
-        ghc922 = [{
-          nonReinstallablePkgs = [
-            "rts"
-            "ghc-heap"
-            "ghc-prim"
-            "integer-gmp"
-            "integer-simple"
-            "base"
-            "deepseq"
-            "array"
-            "ghc-boot-th"
-            "pretty"
-            "template-haskell"
-            "ghcjs-prim"
-            "ghcjs-th"
-            "ghc-bignum"
-            "exceptions"
-            "stm"
-            "ghc-boot"
-            "ghc"
-            "Cabal"
-            "Win32"
-            "array"
-            "binary"
-            "bytestring"
-            "containers"
-            "directory"
-            "filepath"
-            "ghc-boot"
-            "ghc-compact"
-            "ghc-prim"
-            "hpc"
-            "mtl"
-            "parsec"
-            "process"
-            "text"
-            "time"
-            "transformers"
-            "unix"
-            "xhtml"
-            "terminfo"
-          ];
-        }];
+        ghc922 = [{ reinstallableLibGhc = true; }];
       }."${compiler-nix-name}";
     in
     pkgs.haskell-nix.cabalProject rec {
       src = sources.haskell-language-server;
       cabalProject = builtins.readFile "${src}/${hls_project_file}";
       inherit compiler-nix-name modules;
-      configureArgs = "--disable-benchmarks --disable-tests";
+      configureArgs =
+        "--disable-benchmarks --disable-tests --minimize-conflict-set";
     };
   hls_pkg_sets = pkgs.lib.genAttrs supportedGhcs mk_hls_pkg_set;
   mk_hls_tool = ghc: name: mk_hls_tool' ghc name name;
@@ -72,57 +31,13 @@ let
     else
       null;
   mk_tool = compiler-nix-name: name:
-    pkgs.haskell-nix.hackage-tool {
-      inherit name compiler-nix-name;
-    };
+    pkgs.haskell-nix.hackage-tool { inherit name compiler-nix-name; };
 in
 {
   brittany = pkgs.haskell-nix.hackage-tool {
     name = "brittany";
     compiler-nix-name = "ghc902";
-    modules = [{
-      nonReinstallablePkgs = [
-        "rts"
-        "ghc-heap"
-        "ghc-prim"
-        "integer-gmp"
-        "integer-simple"
-        "base"
-        "deepseq"
-        "array"
-        "ghc-boot-th"
-        "pretty"
-        "template-haskell"
-        "ghcjs-prim"
-        "ghcjs-th"
-        "ghc-bignum"
-        "exceptions"
-        "stm"
-        "ghc-boot"
-        "ghc"
-        "Cabal"
-        "Win32"
-        "array"
-        "binary"
-        "bytestring"
-        "containers"
-        "directory"
-        "filepath"
-        "ghc-boot"
-        "ghc-compact"
-        "ghc-prim"
-        "hpc"
-        "mtl"
-        "parsec"
-        "process"
-        "text"
-        "time"
-        "transformers"
-        "unix"
-        "xhtml"
-        "terminfo"
-      ];
-    }];
+    modules = [{ reinstallableLibGhc = true; }];
   };
   cabal = pkgs.haskell-nix.internal-cabal-install;
   cabal-docspec = (pkgs.haskell-nix.cabalProject {
@@ -161,48 +76,6 @@ in
   stylish-haskell = pkgs.haskell-nix.hackage-tool {
     name = "stylish-haskell";
     compiler-nix-name = "ghc922";
-    modules = [{
-      nonReinstallablePkgs = [
-        "rts"
-        "ghc-heap"
-        "ghc-prim"
-        "integer-gmp"
-        "integer-simple"
-        "base"
-        "deepseq"
-        "array"
-        "ghc-boot-th"
-        "pretty"
-        "template-haskell"
-        "ghcjs-prim"
-        "ghcjs-th"
-        "ghc-bignum"
-        "exceptions"
-        "stm"
-        "ghc-boot"
-        "ghc"
-        "Cabal"
-        "Win32"
-        "array"
-        "binary"
-        "bytestring"
-        "containers"
-        "directory"
-        "filepath"
-        "ghc-boot"
-        "ghc-compact"
-        "ghc-prim"
-        "hpc"
-        "mtl"
-        "parsec"
-        "process"
-        "text"
-        "time"
-        "transformers"
-        "unix"
-        "xhtml"
-        "terminfo"
-      ];
-    }];
+    modules = [{ reinstallableLibGhc = true; }];
   };
 }
