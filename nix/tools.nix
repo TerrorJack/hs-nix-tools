@@ -31,12 +31,13 @@ let
     else
       null;
   mk_tool = compiler-nix-name: name:
-    pkgs.haskell-nix.hackage-tool { inherit name compiler-nix-name; };
+    pkgs.haskell-nix.hackage-tool { inherit name compiler-nix-name; index-state = "2022-04-27T09:22:49Z"; };
 in
 {
   brittany = pkgs.haskell-nix.hackage-tool {
     name = "brittany";
     compiler-nix-name = "ghc902";
+    index-state = "2022-04-27T09:22:49Z";
     modules = [{ reinstallableLibGhc = true; }];
   };
   cabal = pkgs.haskell-nix.internal-cabal-install;
@@ -49,6 +50,7 @@ in
     compiler-nix-name = "ghc8107";
     configureArgs =
       "--disable-benchmarks --disable-tests --minimize-conflict-set";
+    index-state = "2022-04-27T09:22:49Z";
     modules = [{ reinstallableLibGhc = true; }];
     sha256map = {
       "https://github.com/phadej/gentle-introduction.git"."176cddab26a446bea644229c2e3ebf9e7b922559" =
@@ -72,10 +74,12 @@ in
   ppsh = (pkgs.haskell-nix.hackage-package {
     name = "pretty-show";
     compiler-nix-name = "ghc922";
+    index-state = "2022-04-27T09:22:49Z";
   }).components.exes.ppsh;
   stylish-haskell = pkgs.haskell-nix.hackage-tool {
     name = "stylish-haskell";
     compiler-nix-name = "ghc922";
+    index-state = "2022-04-27T09:22:49Z";
     modules = [{ reinstallableLibGhc = true; }];
   };
 }
