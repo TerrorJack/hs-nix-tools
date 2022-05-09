@@ -9,19 +9,19 @@ let
     pkgs.haskell-nix.compiler."${compiler-nix-name}".version;
   mk_hls_pkg_set = compiler-nix-name:
     let
-      hls_project_file = {
-        ghc922 = "cabal-ghc92.project";
-      }."${compiler-nix-name}";
       modules = {
         ghc922 = [{ reinstallableLibGhc = true; }];
       }."${compiler-nix-name}";
     in
     pkgs.haskell-nix.cabalProject rec {
       src = sources.haskell-language-server;
-      cabalProject = builtins.readFile "${src}/${hls_project_file}";
       inherit compiler-nix-name modules;
       configureArgs =
         "--disable-benchmarks --disable-tests --minimize-conflict-set";
+      sha256map = {
+        "https://github.com/pepeiborra/ekg-json"."7a0af7a8fd38045fd15fb13445bdcc7085325460" =
+          "sha256-fVwKxGgM0S4Kv/4egVAAiAjV7QB5PBqMVMCfsv7otIQ=";
+      };
     };
   hls_pkg_sets = pkgs.lib.genAttrs supportedGhcs mk_hls_pkg_set;
   mk_hls_tool = ghc: name: mk_hls_tool' ghc name name;
@@ -31,7 +31,10 @@ let
     else
       null;
   mk_tool = compiler-nix-name: name:
-    pkgs.haskell-nix.hackage-tool { inherit name compiler-nix-name; index-state = "2022-04-27T09:22:49Z"; };
+    pkgs.haskell-nix.hackage-tool {
+      inherit name compiler-nix-name;
+      index-state = "2022-04-27T09:22:49Z";
+    };
 in
 {
   brittany = pkgs.haskell-nix.hackage-tool {
