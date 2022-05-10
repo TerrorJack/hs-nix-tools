@@ -10,6 +10,8 @@ let
   mk_hls_pkg_set = compiler-nix-name:
     let
       modules = {
+        ghc865 = [ ];
+        ghc884 = [ ];
         ghc922 = [{ reinstallableLibGhc = true; }];
       }."${compiler-nix-name}";
     in
@@ -26,7 +28,7 @@ let
   hls_pkg_sets = pkgs.lib.genAttrs supportedGhcs mk_hls_pkg_set;
   mk_hls_tool = ghc: name: mk_hls_tool' ghc name name;
   mk_hls_tool' = ghc: pkg: name:
-    if pkgs.lib.elem ghc [ "ghc922" ] then
+    if pkgs.lib.elem ghc [ "ghc865" "ghc884" "ghc922" ] then
       (hls_pkg_sets."${ghc}")."${pkg}".components.exes."${name}"
     else
       null;
