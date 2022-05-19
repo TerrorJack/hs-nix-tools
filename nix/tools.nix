@@ -35,14 +35,14 @@ let
   mk_tool = compiler-nix-name: name:
     pkgs.haskell-nix.hackage-tool {
       inherit name compiler-nix-name;
-      index-state = "2022-04-27T09:22:49Z";
+      index-state = "2022-04-30T21:02:45Z";
     };
 in
 {
   brittany = pkgs.haskell-nix.hackage-tool {
     name = "brittany";
     compiler-nix-name = "ghc902";
-    index-state = "2022-04-27T09:22:49Z";
+    index-state = "2022-04-30T21:02:45Z";
     modules = [{ reinstallableLibGhc = true; }];
   };
   cabal = pkgs.haskell-nix.internal-cabal-install;
@@ -55,11 +55,11 @@ in
     compiler-nix-name = "ghc8107";
     configureArgs =
       "--disable-benchmarks --disable-tests --minimize-conflict-set";
-    index-state = "2022-04-27T09:22:49Z";
+    index-state = "2022-04-30T21:02:45Z";
     modules = [{ reinstallableLibGhc = true; }];
     sha256map = {
-      "https://github.com/phadej/gentle-introduction.git"."176cddab26a446bea644229c2e3ebf9e7b922559" =
-        "sha256-8aJWeWeQ7AssOB+kDhAP0z/KuI0n1//2tybY4qK143o=";
+      "https://github.com/phadej/gentle-introduction.git"."949a99b4d2d8c556bdd455f0e4c4d94f0402ea63" =
+        "sha256-ZQDOUxZrh282STOQMJTHsH/pAQMFpO4QRDmdNHVVUCs=";
       "https://github.com/phadej/warp-wo-x509.git"."98648f7520d228e6a14747223f0bbd68620b9318" =
         "sha256-w8UWW/rOIhzDAF54RkXyb21/39GPA8trJY7U4pHppXY=";
       "https://github.com/phadej/hooglite.git"."18856375932f6744cac7849bd1e816538537863f" =
@@ -68,23 +68,23 @@ in
   }).cabal-docspec.components.exes.cabal-docspec;
   cabal-fmt = mk_tool "ghc8107" "cabal-fmt";
   floskell = mk_hls_tool ghc "floskell";
-  fourmolu = mk_hls_tool ghc "fourmolu";
+  # fourmolu = mk_tool "ghc8107" "fourmolu";
   friendly = mk_tool "ghc8107" "friendly";
   ghcid = mk_tool "ghc922" "ghcid";
   haskell-language-server = mk_hls_tool ghc "haskell-language-server";
   hiedb = mk_hls_tool ghc "hiedb";
   hindent = mk_tool "ghc902" "hindent";
   nix-tools = pkgs.haskell-nix.internal-nix-tools;
-  ormolu = mk_hls_tool ghc "ormolu";
+  ormolu = mk_tool "ghc8107" "ormolu";
   ppsh = (pkgs.haskell-nix.hackage-package {
     name = "pretty-show";
     compiler-nix-name = "ghc922";
-    index-state = "2022-04-27T09:22:49Z";
+    index-state = "2022-04-30T21:02:45Z";
   }).components.exes.ppsh;
   stylish-haskell = pkgs.haskell-nix.hackage-tool {
     name = "stylish-haskell";
     compiler-nix-name = "ghc922";
-    index-state = "2022-04-27T09:22:49Z";
+    index-state = "2022-04-30T21:02:45Z";
     modules = [{ reinstallableLibGhc = true; }];
   };
 }
